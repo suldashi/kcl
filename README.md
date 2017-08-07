@@ -1,12 +1,17 @@
 # kcl
 
-## A promise-based client for the Kurento Media Server, for the browser or node.js
+## A promise-based client for the Kurento Media Server, for the browser or Node.js
 
 ### Building
 
-kcl uses _gulp_ as the task manager, and building kcl requires a global gulp installation. First, install gulp using `npm install -g gulp`, then install the npm packages using `npm install`.
+kcl uses _gulp_ as the task manager, and building kcl requires a global gulp installation.
 
-To build kcl, run `gulp browser` for the browser version and `gulp server` for the Node.js version. The browser version will be located in the _/browser_ directory, and this can be added to any project and included in HTML by using `<script>` tags.
+1. (If not alreaady installed) Install gulp using `npm install -g gulp`
+2. Install the npm packages using `npm install`
+3. Run `gulp browser` to build the browser version
+4. Run `gulp server` to build the server version
+
+The browser version will be located in the _/browser_ directory, and this can be added to any project and included in HTML by using `<script>` tags.
 
 ### Usage
 
