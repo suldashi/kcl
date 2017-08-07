@@ -16,8 +16,8 @@ The browser version will be located in the _/browser_ directory, and this can be
 ### Usage
 
 To connect to a running KMS instance, run the following code:  
-`var client = new KCL("ws://kmsserver.domain:8080/")`  
-and replace kmsserver.domain with the hostname or IP of the KMS instance and 8080 with the IP of the KMS server.
+`var client = new KCL("ws://kmsserver.domain:8888")`  
+and replace kmsserver.domain with the hostname or IP of the KMS instance and 8888 with the IP of the KMS server.
 
 ### Methods
 
