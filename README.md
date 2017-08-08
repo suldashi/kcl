@@ -41,7 +41,7 @@ console.log(response);
 The expected response should be a JSONRPC 2.0 object with a structure similar to this one:
 ```
 {
-    "id": 1,
+    "id": "cf8a653d-e912-1404-9a84-bef9d191b8eb",
     "result": {
         "value": "pong"
     },

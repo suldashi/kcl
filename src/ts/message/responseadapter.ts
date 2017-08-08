@@ -19,10 +19,6 @@ export class ResponseAdapter {
 		return this.getValue(response);
 	}
 
-	public createDispatcherOTMSuccess(response):string {
-		return this.getValue(response);
-	}
-
 	public playPlayerEndpoint(response) {
 		return this.operationError(response);
 	}

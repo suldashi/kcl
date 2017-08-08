@@ -8,6 +8,8 @@ var source = require('vinyl-source-stream');
 var runSequence = require("run-sequence");
 var exec = require('child_process').exec;
 
+var tsProject = ts.createProject('tsconfig.json');
+
 gulp.task('server-pre', function() {
 	return gulp.src("src/ts/ws/websocketserver.ts")
 		.pipe(rename("websocket.ts"))
@@ -16,14 +18,7 @@ gulp.task('server-pre', function() {
 
 gulp.task('server-build', function() {
 	return gulp.src(["src/ts/**/*.ts","!src/ts/ws/websocketserver.ts","!src/ts/ws/websocketbrowser.ts"])
-		.pipe(ts({
-			lib:["es6","dom"],
-			noImplicitAny:false,
-			noEmitOnError:true,
-			removeComments: true,
-			sourceMap:false,
-			target:"es5"
-		}))
+		.pipe(tsProject())
 		.pipe(gulp.dest("./server"));
 });
 
@@ -39,14 +34,7 @@ gulp.task('browser-pre', function() {
 
 gulp.task('browser-build', function() {
 	return gulp.src(["src/ts/**/*.ts","!src/ts/ws/websocketserver.ts","!src/ts/ws/websocketbrowser.ts"])
-		.pipe(ts({
-			lib:["es6","dom"],
-			noImplicitAny:false,
-			noEmitOnError:true,
-			removeComments: true,
-			sourceMap:false,
-			target:"es5"
-		}))
+		.pipe(tsProject())
 		.pipe(gulp.dest("./tmp"));
 });
 

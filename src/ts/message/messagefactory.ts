@@ -1,5 +1,6 @@
 declare var require;
-var guid = require("guid");
+import * as uuidPackage from "uuid";
+const uuid = uuidPackage.v4;
 import {WSMessage} from "./wsmessage";
 
 export class MessageFactory {
@@ -17,17 +18,6 @@ export class MessageFactory {
 		message.params = {
 			type:"MediaPipeline",
 			constructorParams:{}
-		};
-		return message;
-	}
-
-	public createDispatcherOTM(pipelineId:string) {
-		var message = this.newMessage("create");
-		message.params = {
-			type:"DispatcherOneToMany",
-			constructorParams: {
-				mediaPipeline:pipelineId,
-			}
 		};
 		return message;
 	}
@@ -130,7 +120,7 @@ export class MessageFactory {
 	private newMessage(method:string):WSMessage {
 		var message = new WSMessage();
 		message.method = method;
-		message.id=guid.create().value;
+		message.id=uuid();
 		return message;
 	}
 }

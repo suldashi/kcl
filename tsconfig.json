@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib":["es2016","es2016.array.include","dom"],
+		"noImplicitAny":false,
+		"noEmitOnError":true,
+		"removeComments": true
+    },
+    "include": [
+        "src/ts/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+}

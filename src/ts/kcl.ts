@@ -6,7 +6,6 @@ import {MediaPipeline} from "./mediaelement/mediapipeline";
 import {MediaElement} from "./mediaelement/mediaelement";
 import {WebRTCEndpoint} from "./mediaelement/webrtcendpoint";
 import {PlayerEndpoint} from "./mediaelement/playerendpoint";
-import {DispatcherOTM} from "./mediaelement/dispatcherotm";
 
 export class KCL {
 	private messageFactory:MessageFactory;
@@ -37,17 +36,6 @@ export class KCL {
 			var pipelineId = this.responseAdapter.createPipelineSuccess(result);
 			var pipeline = new MediaPipeline(pipelineId,this.mediator);
 			return pipeline;
-		}).catch((reason) => {
-			throw reason;
-		});
-	}
-
-	public createDispatcherOTM(mediaPipeline:MediaPipeline) {
-		var message = this.messageFactory.createDispatcherOTM(mediaPipeline.id);
-		return this.commChannel.send(message).then((result) => {
-			var dispatcherOTMId = this.responseAdapter.createDispatcherOTMSuccess(result);
-			var dispatcherOTM = new DispatcherOTM(dispatcherOTMId,this.mediator);
-			return dispatcherOTM;
 		}).catch((reason) => {
 			throw reason;
 		});
