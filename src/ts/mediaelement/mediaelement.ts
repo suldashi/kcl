@@ -1,20 +1,18 @@
-import {ClientElementMediator} from "./clientelementmediator";
+import {KCL} from "../kcl";
 export class MediaElement {
 	readonly id:string;
-	protected mediator:ClientElementMediator;
+	protected client:KCL;
 	public source:MediaElement;
 	public sink:MediaElement;
-	constructor(id:string,mediator:ClientElementMediator) {
+	constructor(id:string,client:KCL) {
 	    this.id = id;
-	    this.mediator = mediator;
+	    this.client = client;
 	}
 
 
-	public connectToSink(target:MediaElement) {
-		var t = this;
-		return this.mediator.connectSourceToSink(this,target).then((result) => {
-			t.sink = target;
-			return t;
-		});
+	public async connectToSink(target:MediaElement) {
+		let result = await this.client.connectSourceToSink(this,target)
+		this.sink = target;
+		return this;
 	}
 }

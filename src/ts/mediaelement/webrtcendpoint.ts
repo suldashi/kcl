@@ -1,8 +1,8 @@
 import {MediaElement} from "./mediaelement";
-import {ClientElementMediator} from "./clientelementmediator";
+import {KCL} from "../kcl";
 export class WebRTCEndpoint extends MediaElement {
-	constructor(id:string,mediator:ClientElementMediator) {
-	    super(id,mediator);
+	constructor(id:string,client:KCL) {
+	    super(id,client);
 	}
 
 	/*
@@ -17,7 +17,7 @@ export class WebRTCEndpoint extends MediaElement {
 	This method returns the answer SDP string that should be sent to the client
 	*/
 	public processOffer(offer:string) {
-		return this.mediator.processOfferWebRTCEndpoint(offer,this);
+		return this.client.processOfferWebRTCEndpoint(offer,this);
 	}
 
 	/*
@@ -38,7 +38,7 @@ export class WebRTCEndpoint extends MediaElement {
 
 	*/
 	public addIceCandidate(candidate) {
-		return this.mediator.addIceCandidate(this,candidate);
+		return this.client.addIceCandidate(this,candidate);
 	}
 
 	/*
@@ -49,7 +49,7 @@ export class WebRTCEndpoint extends MediaElement {
 
 	*/
 	public registerIceCandidateFound(callback) {
-		return this.mediator.registerIceCandidateFound(this,callback);
+		return this.client.registerIceCandidateFound(this,callback);
 	}
 
 	/*
@@ -58,10 +58,10 @@ export class WebRTCEndpoint extends MediaElement {
 
 	*/
 	public gatherIceCandidates() {
-		return this.mediator.gatherIceCandidates(this);
+		return this.client.gatherIceCandidates(this);
 	}
 
 	public release() {
-		return this.mediator.releaseElement(this);
+		return this.client.releaseElement(this);
 	}
 }

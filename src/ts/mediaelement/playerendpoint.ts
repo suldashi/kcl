@@ -1,11 +1,11 @@
 import {MediaElement} from "./mediaelement";
-import {ClientElementMediator} from "./clientelementmediator";
+import {KCL} from "../kcl";
 export class PlayerEndpoint extends MediaElement {
-	constructor(id:string,mediator:ClientElementMediator) {
-	    super(id,mediator);
+	constructor(id:string,client:KCL) {
+	    super(id,client);
 	}
 
 	public play() {
-		return this.mediator.playPlayerEndpoint(this);
+		return this.client.playPlayerEndpoint(this);
 	}
 }
