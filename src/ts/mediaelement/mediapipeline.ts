@@ -14,17 +14,11 @@ export class MediaPipeline {
 	}
 
 	public async createPlayerEndpoint(filePath:string) {
-		var result = await this.client.createPlayerEndpoint(this,filePath);
-		var playerEndpoint = new PlayerEndpoint(result,this.client);
-		this.mediaElements.push(playerEndpoint);
-		return playerEndpoint;
+		return this.client.createPlayerEndpoint(this,filePath);
 	}
 
 	public async createWebRTCEndpoint() {
-		var result = await this.client.createWebRTCEndpoint(this);
-		var webRtcEndpoint = new WebRTCEndpoint(result,this.client);
-		this.mediaElements.push(webRtcEndpoint);
-		return webRtcEndpoint;
+		return this.client.createWebRTCEndpoint(this);
 	}
 
 	public release() {

@@ -19,129 +19,91 @@ export class KCL {
 
 	public async ping() {
 		var message = this.messageFactory.createPing();
-		try {
-			return await this.ws.send(message);
-		}
-		catch(error) {
-			throw error;
-		}
+		return this.ws.send(message);
 	}
 
 	
-	public createPipeline() {
+	public async createPipeline() {
 		var message = this.messageFactory.createPipeline();
-		return this.ws.send(message).then((result) => {
-			var pipelineId = this.responseAdapter.createPipelineSuccess(result);
-			var pipeline = new MediaPipeline(pipelineId,this);
-			return pipeline;
-		}).catch((reason) => {
-			throw reason;
-		});
+		let result = await this.ws.send(message)
+		var pipelineId = this.responseAdapter.createPipelineSuccess(result);
+		return new MediaPipeline(pipelineId,this);
 	}
 
-	public releaseElement(element) {
+	public async releaseElement(element) {
 		var message = this.messageFactory.releaseElement(element.id);
-		return this.ws.send(message).then((result) => {
-			return true;
-		}).catch((reason) => {
-			throw reason;	
-		});
+		let result = await this.ws.send(message);
+		return true;
 	}
 
-	public connectSourceToSink(source:MediaElement,sink:MediaElement) {
+	public async connectSourceToSink(source:MediaElement,sink:MediaElement) {
 		var message = this.messageFactory.connectSourceToSink(source.id,sink.id);
-		return this.ws.send(message).then((result) => {
-			var connectSourceToSinkMessageResult = this.responseAdapter.connectSourceToSink(result);
-			if(connectSourceToSinkMessageResult.success) {
-				return source;
-			}
-			else {
-				throw connectSourceToSinkMessageResult.result;
-			}
-		}).catch((reason) => {
-			throw reason;
-		});
+		let result = await this.ws.send(message);
+		var connectSourceToSinkMessageResult = this.responseAdapter.connectSourceToSink(result);
+		if(connectSourceToSinkMessageResult.success) {
+			return true;
+		}
+		else {
+			throw connectSourceToSinkMessageResult.result;
+		}
 	}
 
-	public createPlayerEndpoint(mediaPipeline:MediaPipeline,filePath) {
+	public async createPlayerEndpoint(mediaPipeline:MediaPipeline,filePath) {
 		var message = this.messageFactory.createPlayerEndpoint(mediaPipeline.id,filePath);
-		return this.ws.send(message).then((result) => {
-			var playerEndpointId = this.responseAdapter.createPlayerEndpointSuccess(result);
-			return playerEndpointId;
-		}).catch((reason)=>{
-			throw reason;
-		});
+		let result = this.ws.send(message)
+		var playerEndpointId = this.responseAdapter.createPlayerEndpointSuccess(result);
+		return new PlayerEndpoint(playerEndpointId,this);
 	}
 
-	public createWebRTCEndpoint(mediaPipeline:MediaPipeline) {
+	public async createWebRTCEndpoint(mediaPipeline:MediaPipeline) {
 		var message = this.messageFactory.createWebRTCEndpoint(mediaPipeline.id);
-		return this.ws.send(message).then((result) => {
-			var webRTCEndpointId = this.responseAdapter.createWebRTCEndpointSuccess(result);
-			return webRTCEndpointId;
-		}).catch((reason)=>{
-			throw reason;
-		});
+		let result = await this.ws.send(message)
+		var webRTCEndpointId = this.responseAdapter.createWebRTCEndpointSuccess(result);
+		return new WebRTCEndpoint(webRTCEndpointId,this);
 	}
 
-	public processOfferWebRTCEndpoint(offer:string,endpoint:WebRTCEndpoint) {
+	public async processOfferWebRTCEndpoint(offer:string,endpoint:WebRTCEndpoint) {
 		var message = this.messageFactory.processOfferWebRTCEndpoint(offer,endpoint.id);
-		return this.ws.send(message).then((result) => {
-			var processOfferMessageResult = this.responseAdapter.processOfferWebRTCEndpoint(result);
-			if(processOfferMessageResult.success) {
-				var processOfferSuccess = this.responseAdapter.processOfferSuccess(result);
-				return processOfferSuccess;
-			}
-			else {
-				throw processOfferMessageResult.result;
-			}
-		}).catch((reason)=>{
-			throw reason;
-		});
+		let result = await this.ws.send(message);
+		var processOfferMessageResult = this.responseAdapter.processOfferWebRTCEndpoint(result);
+		if(processOfferMessageResult.success) {
+			var processOfferSuccess = this.responseAdapter.processOfferSuccess(result);
+			return processOfferSuccess;
+		}
+		else {
+			throw processOfferMessageResult.result;
+		}
 	}
 
-	public playPlayerEndpoint(player:PlayerEndpoint) {
+	public async playPlayerEndpoint(player:PlayerEndpoint) {
 		var message = this.messageFactory.playPlayerEndpoint(player.id);
-		return this.ws.send(message).then((result) => {
-			var playMessageResult = this.responseAdapter.playPlayerEndpoint(result);
-			if(playMessageResult.success) {
-
-				return player.id;
-			}
-			else {
-				throw playMessageResult.result;
-			}
-		}).catch((reason) => {
-			var parsedReason = this.responseAdapter.playPlayerEndpointFailure(reason);
-			throw parsedReason;
-		});
+		let result = this.ws.send(message)
+		var playMessageResult = this.responseAdapter.playPlayerEndpoint(result);
+		if(playMessageResult.success) {
+			return true;
+		}
+		else {
+			throw playMessageResult.result;
+		}
 	}
 
-	public addIceCandidate(webRTCEndpoint,iceCandidate) {
+	public async addIceCandidate(webRTCEndpoint,iceCandidate) {
 		var message = this.messageFactory.addIceCandidate(webRTCEndpoint.id,iceCandidate);
-		return this.ws.send(message).then((result) => {
-			return webRTCEndpoint;
-		}).catch((reason) => {
-			throw reason;
-		});
+		let result = await this.ws.send(message)
+		return true;
 	}
 
-	public gatherIceCandidates(webRTCEndpoint) {
+	public async gatherIceCandidates(webRTCEndpoint) {
 		var message = this.messageFactory.gatherIceCandidates(webRTCEndpoint.id);
-		return this.ws.send(message).then((result) => {
-			return webRTCEndpoint;
-		}).catch((reason) => {
-			throw reason;
-		});
+		let result = await this.ws.send(message);
+		return true;
 	}
 
-	public registerIceCandidateFound(webRTCEndpoint,callback) {
+	public async registerIceCandidateFound(webRTCEndpoint,callback) {
 		var message = this.messageFactory.registerIceCandidateFound(webRTCEndpoint.id);
 		this.ws.on(webRTCEndpoint.id,"IceCandidateFound",callback);
-		return this.ws.send(message).then((result) => {
-			return webRTCEndpoint;
-		}).catch((reason) => {
-			throw reason;
-		});
+		let result = await this.ws.send(message);
+		return true;
 	}
 
 	
