@@ -7,7 +7,7 @@ export class WSChannel {
 	private messageListeners;
 	private eventListeners;
 	constructor(wsAddress) {
-	    this.ws = new WS(wsAddress+"/kurento");
+	    this.ws = new WS(wsAddress);
 	    var t = this;
 	    this.messageListeners = {};
 	    this.eventListeners = {};

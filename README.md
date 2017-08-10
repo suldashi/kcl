@@ -6,18 +6,23 @@
 
 kcl uses _gulp_ as the task manager, and building kcl requires a global gulp installation.
 
-1. (If not alreaady installed) Install gulp using `npm install -g gulp`
-2. Install the npm packages using `npm install`
+1. (If not alreaady installed) Install gulp globally by running `npm install -g gulp`
+2. Install the npm packages running `npm install`
 3. Run `gulp browser` to build the browser version
 4. Run `gulp server` to build the server version
 
-The browser version will be located in the _/browser_ directory, and this can be added to any project and included in HTML by using `<script>` tags.
+### Installation
+
+* Node.js: run `npm install --save kcl` to install from NPM.
+* Browser: copy the `kcl.browser.js` script from the _/browser_ directory into a public directory, and link to it from your HTML file by using the `<script>` tag.
 
 ### Usage
 
-To connect to a running KMS instance, run the following code:  
-`var client = new KCL("ws://kmsserver.domain:8888")`  
-and replace kmsserver.domain with the hostname or IP of the KMS instance and 8888 with the IP of the KMS server.
+In node, you can include KCL by using this statement: `const KCL = require("kcl");`
+
+To connect to a running KMS instance, run the following code:
+`var client = new KCL("ws://kmsserver.domain:8888/kurento")`  
+and replace kmsserver.domain with the hostname or IP of the KMS instance and 8888 with the IP of the KMS server. The `/kurento` path is the default path that KMS listens to, if you have modified the settings and changed this path, change it here to match as well.
 
 ### Methods
 

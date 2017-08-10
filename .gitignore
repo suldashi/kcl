@@ -1,5 +1,4 @@
 /node_modules
 /server
 /browser
-package-lock.json
 .DS_Store

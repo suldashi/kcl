@@ -108,6 +108,10 @@ export class KCL {
 
 	
 }
+declare var module;
 if(typeof window !== "undefined") {
 	window['KCL'] = KCL;	
+}
+else {
+	module.exports = KCL;
 }
