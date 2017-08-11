@@ -10,9 +10,11 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "^14.1.0",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "gulp-typescript": "^3.1.2",
+    "rename": "^1.0.4",
     "run-sequence": "^1.2.2",
     "typescript": "^2.0.9",
     "vinyl-buffer": "^1.0.0",
