@@ -9,6 +9,9 @@ export class WSChannel {
 	    this.ws = new WS(wsAddress,undefined,wsOpts);
 	    this.messageListeners = {};
 	    this.eventListeners = {};
+	    this.ws.onerror = (err) => {
+	    	console.log(err);
+	    };
 	    this.ws.onmessage = (result) =>{
 	    	var data = JSON.parse(result.data);	    	
 	    	//normal responses

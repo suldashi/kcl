@@ -1037,6 +1037,9 @@ var WSChannel = (function () {
         this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
         this.messageListeners = {};
         this.eventListeners = {};
+        this.ws.onerror = function (err) {
+            console.log(err);
+        };
         this.ws.onmessage = function (result) {
             var data = JSON.parse(result.data);
             if (data.method != "onEvent" && typeof data.error === "undefined") {
