@@ -1,5 +1,5 @@
 import {WSMessage} from "../message/wsmessage";
-import {WS} from "./websocket";
+import {WS,wsOpts} from "./websocket";
 declare var console;
 export class WSChannel {
 	private wsUrl:String = "192.168.56.101:8888";
@@ -7,7 +7,7 @@ export class WSChannel {
 	private messageListeners;
 	private eventListeners;
 	constructor(wsAddress) {
-	    this.ws = new WS(wsAddress);
+	    this.ws = new WS(wsAddress,undefined,wsOpts);
 	    var t = this;
 	    this.messageListeners = {};
 	    this.eventListeners = {};

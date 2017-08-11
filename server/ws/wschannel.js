@@ -4,7 +4,7 @@ var websocket_1 = require("./websocket");
 var WSChannel = (function () {
     function WSChannel(wsAddress) {
         this.wsUrl = "192.168.56.101:8888";
-        this.ws = new websocket_1.WS(wsAddress);
+        this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
         var t = this;
         this.messageListeners = {};
         this.eventListeners = {};
