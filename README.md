@@ -26,7 +26,7 @@ and replace kmsserver.domain with the hostname or IP of the KMS instance and 888
 
 ### Methods
 
-**ping** 
+**ping**  
 Used to check the connectivity status with the server.  
 
 Example usage:  

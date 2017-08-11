@@ -1,35 +1,35 @@
 import {WSMessage} from "../message/wsmessage";
-import {WS} from "./websocket";
+import * as WS from "reconnecting-websocket";
 declare var console;
 export class WSChannel {
-	private wsUrl:String = "192.168.56.101:8888";
 	private ws;
 	private messageListeners;
 	private eventListeners;
 	constructor(wsAddress) {
 	    this.ws = new WS(wsAddress);
-	    var t = this;
+	    this.ws.debug = true;
+		this.ws.timeoutInterval = 5400;
 	    this.messageListeners = {};
 	    this.eventListeners = {};
-	    this.ws.onmessage = function(result) {
+	    this.ws.onmessage = (result) =>{
 	    	var data = JSON.parse(result.data);	    	
 	    	//normal responses
 	    	if(data.method!="onEvent" && typeof data.error === "undefined") {
 	    		var id = data.id;
-		    	t.messageListeners[id]["resolve"](data);
-		    	delete t.messageListeners[id];	
+		    	this.messageListeners[id]["resolve"](data);
+		    	delete this.messageListeners[id];	
 	    	}
 	    	//errors
 	    	else if(typeof data.error !== "undefined") {
 	    		var id = data.id;
-	    		t.messageListeners[id]["reject"](data);
-	    		delete t.messageListeners[id];
+	    		this.messageListeners[id]["reject"](data);
+	    		delete this.messageListeners[id];
 	    	}
 	    	//events
 	    	else {
 	    		var index = data.params.value.object + "|" + data.params.value.type;
-	    		for(var i in t.eventListeners[index]) {
-					t.eventListeners[index][i](data.params.value.data.candidate);
+	    		for(var i in this.eventListeners[index]) {
+					this.eventListeners[index][i](data.params.value.data.candidate);
 				}
 	    	}
 	    }

@@ -20,6 +20,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "reconnecting-websocket": "^3.0.7",
     "uuid": "^3.1.0",
     "ws": "^1.1.1"
   }
