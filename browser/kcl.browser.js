@@ -1033,27 +1033,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var websocket_1 = require("./websocket");
 var WSChannel = (function () {
     function WSChannel(wsAddress) {
-        this.wsUrl = "192.168.56.101:8888";
+        var _this = this;
         this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
-        var t = this;
         this.messageListeners = {};
         this.eventListeners = {};
         this.ws.onmessage = function (result) {
             var data = JSON.parse(result.data);
             if (data.method != "onEvent" && typeof data.error === "undefined") {
                 var id = data.id;
-                t.messageListeners[id]["resolve"](data);
-                delete t.messageListeners[id];
+                _this.messageListeners[id]["resolve"](data);
+                delete _this.messageListeners[id];
             }
             else if (typeof data.error !== "undefined") {
                 var id = data.id;
-                t.messageListeners[id]["reject"](data);
-                delete t.messageListeners[id];
+                _this.messageListeners[id]["reject"](data);
+                delete _this.messageListeners[id];
             }
             else {
                 var index = data.params.value.object + "|" + data.params.value.type;
-                for (var i in t.eventListeners[index]) {
-                    t.eventListeners[index][i](data.params.value.data.candidate);
+                for (var i in _this.eventListeners[index]) {
+                    _this.eventListeners[index][i](data.params.value.data.candidate);
                 }
             }
         };
