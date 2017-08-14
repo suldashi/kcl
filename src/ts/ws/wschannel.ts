@@ -10,7 +10,7 @@ export class WSChannel {
 	constructor(wsAddress) {
 		this.messageListeners = {};
 	    this.eventListeners = {};
-
+	    
 		this.queue = new MiniMQ();
 		this.queue.handlerFunction = (el,prm,resolve,reject) => {
 			try {
