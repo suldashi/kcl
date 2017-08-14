@@ -1,14 +1,38 @@
 import {WSMessage} from "../message/wsmessage";
+import {MiniMQ} from "minimq";
 import {WS,wsOpts} from "./websocket";
 declare var console;
 export class WSChannel {
 	private ws;
 	private messageListeners;
 	private eventListeners;
+	private queue;
 	constructor(wsAddress) {
-	    this.ws = new WS(wsAddress,undefined,wsOpts);
-	    this.messageListeners = {};
+		this.messageListeners = {};
 	    this.eventListeners = {};
+
+		this.queue = new MiniMQ();
+		this.queue.handlerFunction = (el,prm,resolve,reject) => {
+			try {
+				this.ws.send(JSON.stringify(el));
+				this.messageListeners[el.id] = {resolve:resolve,reject:reject};
+			}
+			catch(e) {
+				reject(e);
+			}
+			setTimeout(()=>{
+				reject("timeoutError");
+				delete this.messageListeners[el.id];
+			},10000);
+		}
+
+	    this.ws = new WS(wsAddress,undefined,wsOpts);
+	    this.ws.onopen = () => {
+	    	this.queue.openQueue();
+	    };
+	    this.ws.onclose = () => {
+	    	this.queue.closeQueue();
+	    }
 	    this.ws.onmessage = (result) =>{
 	    	var data = JSON.parse(result.data);	    	
 	    	//normal responses
@@ -42,20 +66,6 @@ export class WSChannel {
 	}
 
 	public send(data:WSMessage):Promise<any> {
-		var id = data.id;
-		var t = this;
-		return new Promise((resolve,reject) => {
-			try {
-				t.ws.send(JSON.stringify(data));
-				t.messageListeners[id] = {resolve:resolve,reject:reject};
-			}
-			catch(e) {
-				reject(e);
-			}
-			setTimeout(()=>{
-				reject("timeoutError");
-				delete t.messageListeners[id];
-			},10000);
-		});
+		return this.queue.addElement(data);
 	}
 }
