@@ -1,5 +1,5 @@
 import {WSMessage} from "../message/wsmessage";
-import {MiniMQ} from "minimq";
+import * as MiniMQ from "minimq";
 import {WS,wsOpts} from "./websocket";
 declare var console;
 export class WSChannel {
@@ -10,7 +10,7 @@ export class WSChannel {
 	constructor(wsAddress) {
 		this.messageListeners = {};
 	    this.eventListeners = {};
-	    
+
 		this.queue = new MiniMQ();
 		this.queue.handlerFunction = (el,prm,resolve,reject) => {
 			try {

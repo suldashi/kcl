@@ -1,14 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var MiniMQ = require("minimq");
 var websocket_1 = require("./websocket");
 var WSChannel = (function () {
     function WSChannel(wsAddress) {
         var _this = this;
-        this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
         this.messageListeners = {};
         this.eventListeners = {};
-        this.ws.onerror = function (err) {
-            console.log(err);
+        this.queue = new MiniMQ();
+        this.queue.handlerFunction = function (el, prm, resolve, reject) {
+            try {
+                _this.ws.send(JSON.stringify(el));
+                _this.messageListeners[el.id] = { resolve: resolve, reject: reject };
+            }
+            catch (e) {
+                reject(e);
+            }
+            setTimeout(function () {
+                reject("timeoutError");
+                delete _this.messageListeners[el.id];
+            }, 10000);
+        };
+        this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
+        this.ws.onopen = function () {
+            _this.queue.openQueue();
+        };
+        this.ws.onclose = function () {
+            _this.queue.closeQueue();
         };
         this.ws.onmessage = function (result) {
             var data = JSON.parse(result.data);
@@ -38,21 +56,7 @@ var WSChannel = (function () {
         this.eventListeners[index].push(callback);
     };
     WSChannel.prototype.send = function (data) {
-        var id = data.id;
-        var t = this;
-        return new Promise(function (resolve, reject) {
-            try {
-                t.ws.send(JSON.stringify(data));
-                t.messageListeners[id] = { resolve: resolve, reject: reject };
-            }
-            catch (e) {
-                reject(e);
-            }
-            setTimeout(function () {
-                reject("timeoutError");
-                delete t.messageListeners[id];
-            }, 10000);
-        });
+        return this.queue.addElement(data);
     };
     return WSChannel;
 }());

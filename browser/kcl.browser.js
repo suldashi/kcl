@@ -1,4 +1,52 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+class MiniMQ {
+	constructor() {
+		this.queue = [];
+		this.closeQueue();
+		this.handlerFunction = (el,prm,resolve,reject) => {};
+	}
+
+	openQueue() {
+		while(this.queue.length!==0) {
+			let currentEl = this.queue.shift();
+			this.handlerFunction(currentEl.el,currentEl.prm,currentEl.resolveInstance,currentEl.rejectInstance);
+		}
+		this.isQueueOpen = true;
+	}
+
+	closeQueue() {
+		this.isQueueOpen = false;
+	}
+
+	addElement(el) {
+		let resolveInstance;
+		let rejectInstance;
+		let prm = new Promise((resolve,reject) => {
+			resolveInstance = resolve;
+			rejectInstance = reject;
+		});
+		if(this.isQueueOpen) {
+			this.handlerFunction(el,prm,resolveInstance,rejectInstance);
+		}
+		else {
+			this.queue.push({
+				el:el,
+				prm:prm,
+				resolveInstance:resolveInstance,
+				rejectInstance,rejectInstance
+			});
+		}
+		return prm;
+	}
+}
+
+if(typeof window !== "undefined") {
+	window.MiniMQ = MiniMQ;	
+}
+else {
+	module.exports = MiniMQ;
+}
+},{}],2:[function(require,module,exports){
 "use strict";
 var isWebSocket = function (constructor) {
     return constructor && constructor.CLOSING === 2;
@@ -209,7 +257,7 @@ var ReconnectingWebsocket = function (url, protocols, options) {
 };
 module.exports = ReconnectingWebsocket;
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 var v1 = require('./v1');
 var v4 = require('./v4');
 
@@ -219,7 +267,7 @@ uuid.v4 = v4;
 
 module.exports = uuid;
 
-},{"./v1":5,"./v4":6}],3:[function(require,module,exports){
+},{"./v1":6,"./v4":7}],4:[function(require,module,exports){
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -244,7 +292,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (global){
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
@@ -281,7 +329,7 @@ if (!rng) {
 module.exports = rng;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -383,7 +431,7 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/bytesToUuid":3,"./lib/rng":4}],6:[function(require,module,exports){
+},{"./lib/bytesToUuid":4,"./lib/rng":5}],7:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -414,7 +462,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":3,"./lib/rng":4}],7:[function(require,module,exports){
+},{"./lib/bytesToUuid":4,"./lib/rng":5}],8:[function(require,module,exports){
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -649,7 +697,7 @@ else {
     module.exports = KCL;
 }
 
-},{"./mediaelement/mediapipeline":9,"./mediaelement/playerendpoint":10,"./mediaelement/webrtcendpoint":11,"./message/messagefactory":12,"./message/responseadapter":13,"./ws/wschannel":16}],8:[function(require,module,exports){
+},{"./mediaelement/mediapipeline":10,"./mediaelement/playerendpoint":11,"./mediaelement/webrtcendpoint":12,"./message/messagefactory":13,"./message/responseadapter":14,"./ws/wschannel":17}],9:[function(require,module,exports){
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -710,7 +758,7 @@ var MediaElement = (function () {
 }());
 exports.MediaElement = MediaElement;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -775,7 +823,7 @@ var MediaPipeline = (function () {
 }());
 exports.MediaPipeline = MediaPipeline;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -801,7 +849,7 @@ var PlayerEndpoint = (function (_super) {
 }(mediaelement_1.MediaElement));
 exports.PlayerEndpoint = PlayerEndpoint;
 
-},{"./mediaelement":8}],11:[function(require,module,exports){
+},{"./mediaelement":9}],12:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -839,7 +887,7 @@ var WebRTCEndpoint = (function (_super) {
 }(mediaelement_1.MediaElement));
 exports.WebRTCEndpoint = WebRTCEndpoint;
 
-},{"./mediaelement":8}],12:[function(require,module,exports){
+},{"./mediaelement":9}],13:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var uuidPackage = require("uuid");
@@ -959,7 +1007,7 @@ var MessageFactory = (function () {
 }());
 exports.MessageFactory = MessageFactory;
 
-},{"./wsmessage":14,"uuid":2}],13:[function(require,module,exports){
+},{"./wsmessage":15,"uuid":3}],14:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ResponseAdapter = (function () {
@@ -1010,7 +1058,7 @@ var ResponseAdapter = (function () {
 }());
 exports.ResponseAdapter = ResponseAdapter;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var WSMessage = (function () {
@@ -1021,24 +1069,42 @@ var WSMessage = (function () {
 }());
 exports.WSMessage = WSMessage;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WS = require("reconnecting-websocket");
 exports.wsOpts = { constructor: WebSocket };
 
-},{"reconnecting-websocket":1}],16:[function(require,module,exports){
+},{"reconnecting-websocket":2}],17:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var MiniMQ = require("minimq");
 var websocket_1 = require("./websocket");
 var WSChannel = (function () {
     function WSChannel(wsAddress) {
         var _this = this;
-        this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
         this.messageListeners = {};
         this.eventListeners = {};
-        this.ws.onerror = function (err) {
-            console.log(err);
+        this.queue = new MiniMQ();
+        this.queue.handlerFunction = function (el, prm, resolve, reject) {
+            try {
+                _this.ws.send(JSON.stringify(el));
+                _this.messageListeners[el.id] = { resolve: resolve, reject: reject };
+            }
+            catch (e) {
+                reject(e);
+            }
+            setTimeout(function () {
+                reject("timeoutError");
+                delete _this.messageListeners[el.id];
+            }, 10000);
+        };
+        this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
+        this.ws.onopen = function () {
+            _this.queue.openQueue();
+        };
+        this.ws.onclose = function () {
+            _this.queue.closeQueue();
         };
         this.ws.onmessage = function (result) {
             var data = JSON.parse(result.data);
@@ -1068,24 +1134,10 @@ var WSChannel = (function () {
         this.eventListeners[index].push(callback);
     };
     WSChannel.prototype.send = function (data) {
-        var id = data.id;
-        var t = this;
-        return new Promise(function (resolve, reject) {
-            try {
-                t.ws.send(JSON.stringify(data));
-                t.messageListeners[id] = { resolve: resolve, reject: reject };
-            }
-            catch (e) {
-                reject(e);
-            }
-            setTimeout(function () {
-                reject("timeoutError");
-                delete t.messageListeners[id];
-            }, 10000);
-        });
+        return this.queue.addElement(data);
     };
     return WSChannel;
 }());
 exports.WSChannel = WSChannel;
 
-},{"./websocket":15}]},{},[7]);
+},{"./websocket":16,"minimq":1}]},{},[8]);
