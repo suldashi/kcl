@@ -1,6 +1,6 @@
 {
   "name": "kcl",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Promise-based JS client for connecting and managing the Kurento Media Server. Works in Node.js or the browser.",
   "main": "server/kcl.js",
   "scripts": {
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "html5-websocket": "^1.0.0",
+    "minimq": "^1.0.0",
     "reconnecting-websocket": "^3.0.7",
     "uuid": "^3.1.0",
     "ws": "^1.1.1"
