@@ -43,9 +43,8 @@ class MiniMQ {
 if(typeof window !== "undefined") {
 	window.MiniMQ = MiniMQ;	
 }
-else {
-	module.exports = MiniMQ;
-}
+module.exports = MiniMQ;
+//end of file
 },{}],2:[function(require,module,exports){
 "use strict";
 var isWebSocket = function (constructor) {

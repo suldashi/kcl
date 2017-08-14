@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "html5-websocket": "^1.0.0",
-    "minimq": "^1.1.0",
+    "minimq": "^1.1.2",
     "reconnecting-websocket": "^3.0.7",
     "uuid": "^3.1.0",
     "ws": "^1.1.1"
