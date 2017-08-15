@@ -53,10 +53,10 @@ export class WebRTCEndpoint extends MediaElement {
 
 	var pc = new RTCPeerConnection();
 	pc.onicecandidate = (e) => {
-		client.sendIceCandidate(e.candidate);
+		client.addIceCandidate(e.candidate);
 	};
 
-	In this example, the client object manages the connection to the server, and the sendIceCandidate method sends the candidate here.
+	In this example, the client object manages the connection to the server, and the addIceCandidate method sends the candidate here.
 	The e.candidate object is what this method expects as input.
 
 	*/
