@@ -75,6 +75,19 @@ export class KCL {
 		}
 	}
 
+	public async generateOfferWebRTCEndpoint(endpoint:WebRTCEndpoint) {
+		var message = this.messageFactory.generateOfferWebRTCEndpoint(endpoint.id);
+		let result = await this.ws.send(message);
+		var generateOfferMessageResult = this.responseAdapter.generateOfferWebRTCEndpoint(result);
+		if(generateOfferMessageResult.success) {
+			var processOfferSuccess = this.responseAdapter.generateOfferSuccess(result);
+			return processOfferSuccess;
+		}
+		else {
+			throw generateOfferMessageResult.result;
+		}
+	}
+
 	public async playPlayerEndpoint(player:PlayerEndpoint) {
 		var message = this.messageFactory.playPlayerEndpoint(player.id);
 		let result = this.ws.send(message)

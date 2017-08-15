@@ -19,6 +19,9 @@ var WebRTCEndpoint = (function (_super) {
     WebRTCEndpoint.prototype.processOffer = function (offer) {
         return this.client.processOfferWebRTCEndpoint(offer, this);
     };
+    WebRTCEndpoint.prototype.generateOffer = function (offer) {
+        return this.client.generateOfferWebRTCEndpoint(this);
+    };
     WebRTCEndpoint.prototype.addIceCandidate = function (candidate) {
         return this.client.addIceCandidate(this, candidate);
     };

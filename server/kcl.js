@@ -159,6 +159,29 @@ var KCL = (function () {
             });
         });
     };
+    KCL.prototype.generateOfferWebRTCEndpoint = function (endpoint) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, generateOfferMessageResult, processOfferSuccess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.generateOfferWebRTCEndpoint(endpoint.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        generateOfferMessageResult = this.responseAdapter.generateOfferWebRTCEndpoint(result);
+                        if (generateOfferMessageResult.success) {
+                            processOfferSuccess = this.responseAdapter.generateOfferSuccess(result);
+                            return [2, processOfferSuccess];
+                        }
+                        else {
+                            throw generateOfferMessageResult.result;
+                        }
+                        return [2];
+                }
+            });
+        });
+    };
     KCL.prototype.playPlayerEndpoint = function (player) {
         return __awaiter(this, void 0, void 0, function () {
             var message, result, playMessageResult;

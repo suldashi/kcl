@@ -80,6 +80,14 @@ var MessageFactory = (function () {
         };
         return message;
     };
+    MessageFactory.prototype.generateOfferWebRTCEndpoint = function (endpointId) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "generateOffer",
+            object: endpointId
+        };
+        return message;
+    };
     MessageFactory.prototype.registerIceCandidateFound = function (webRTCEndpointId) {
         var message = this.newMessage("subscribe");
         message.params = {

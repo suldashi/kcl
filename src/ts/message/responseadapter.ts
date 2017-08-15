@@ -27,7 +27,15 @@ export class ResponseAdapter {
 		return this.operationError(response);
 	}
 
+	public generateOfferWebRTCEndpoint(response) {
+		return this.operationError(response);
+	}
+
 	public processOfferSuccess(response) {
+		return this.getValue(response);
+	}
+
+	public generateOfferSuccess(response) {
 		return this.getValue(response);
 	}
 

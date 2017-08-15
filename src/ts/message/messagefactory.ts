@@ -87,6 +87,16 @@ export class MessageFactory {
 		return message;
 	}
 
+
+	public generateOfferWebRTCEndpoint(endpointId:string) {
+		var message =this.newMessage("invoke");
+		message.params = {
+			operation:"generateOffer",
+			object:endpointId
+		}
+		return message;
+	}
+
 	public registerIceCandidateFound(webRTCEndpointId) {
 		var message =this.newMessage("subscribe");
 		message.params = {

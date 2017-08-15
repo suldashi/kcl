@@ -623,6 +623,29 @@ var KCL = (function () {
             });
         });
     };
+    KCL.prototype.generateOfferWebRTCEndpoint = function (endpoint) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, generateOfferMessageResult, processOfferSuccess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.generateOfferWebRTCEndpoint(endpoint.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        generateOfferMessageResult = this.responseAdapter.generateOfferWebRTCEndpoint(result);
+                        if (generateOfferMessageResult.success) {
+                            processOfferSuccess = this.responseAdapter.generateOfferSuccess(result);
+                            return [2, processOfferSuccess];
+                        }
+                        else {
+                            throw generateOfferMessageResult.result;
+                        }
+                        return [2];
+                }
+            });
+        });
+    };
     KCL.prototype.playPlayerEndpoint = function (player) {
         return __awaiter(this, void 0, void 0, function () {
             var message, result, playMessageResult;
@@ -870,6 +893,9 @@ var WebRTCEndpoint = (function (_super) {
     WebRTCEndpoint.prototype.processOffer = function (offer) {
         return this.client.processOfferWebRTCEndpoint(offer, this);
     };
+    WebRTCEndpoint.prototype.generateOffer = function (offer) {
+        return this.client.generateOfferWebRTCEndpoint(this);
+    };
     WebRTCEndpoint.prototype.addIceCandidate = function (candidate) {
         return this.client.addIceCandidate(this, candidate);
     };
@@ -969,6 +995,14 @@ var MessageFactory = (function () {
         };
         return message;
     };
+    MessageFactory.prototype.generateOfferWebRTCEndpoint = function (endpointId) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "generateOffer",
+            object: endpointId
+        };
+        return message;
+    };
     MessageFactory.prototype.registerIceCandidateFound = function (webRTCEndpointId) {
         var message = this.newMessage("subscribe");
         message.params = {
@@ -1033,7 +1067,13 @@ var ResponseAdapter = (function () {
     ResponseAdapter.prototype.processOfferWebRTCEndpoint = function (response) {
         return this.operationError(response);
     };
+    ResponseAdapter.prototype.generateOfferWebRTCEndpoint = function (response) {
+        return this.operationError(response);
+    };
     ResponseAdapter.prototype.processOfferSuccess = function (response) {
+        return this.getValue(response);
+    };
+    ResponseAdapter.prototype.generateOfferSuccess = function (response) {
         return this.getValue(response);
     };
     ResponseAdapter.prototype.connectSourceToSink = function (response) {
