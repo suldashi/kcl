@@ -24,10 +24,16 @@ var ResponseAdapter = (function () {
     ResponseAdapter.prototype.processOfferWebRTCEndpoint = function (response) {
         return this.operationError(response);
     };
+    ResponseAdapter.prototype.processAnswerWebRTCEndpoint = function (response) {
+        return this.operationError(response);
+    };
     ResponseAdapter.prototype.generateOfferWebRTCEndpoint = function (response) {
         return this.operationError(response);
     };
     ResponseAdapter.prototype.processOfferSuccess = function (response) {
+        return this.getValue(response);
+    };
+    ResponseAdapter.prototype.processAnswerSuccess = function (response) {
         return this.getValue(response);
     };
     ResponseAdapter.prototype.generateOfferSuccess = function (response) {

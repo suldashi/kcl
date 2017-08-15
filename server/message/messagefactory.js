@@ -80,6 +80,17 @@ var MessageFactory = (function () {
         };
         return message;
     };
+    MessageFactory.prototype.processAnswerWebRTCEndpoint = function (answer, endpointId) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "processAnswer",
+            object: endpointId,
+            operationParams: {
+                "answer": answer
+            }
+        };
+        return message;
+    };
     MessageFactory.prototype.generateOfferWebRTCEndpoint = function (endpointId) {
         var message = this.newMessage("invoke");
         message.params = {

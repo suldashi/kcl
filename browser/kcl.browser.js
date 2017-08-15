@@ -623,6 +623,30 @@ var KCL = (function () {
             });
         });
     };
+    KCL.prototype.processAnswerWebRTCEndpoint = function (answer, endpoint) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, processAnswerMessageResult, processAnswerSuccess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.processAnswerWebRTCEndpoint(answer, endpoint.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        console.log(result);
+                        processAnswerMessageResult = this.responseAdapter.processAnswerWebRTCEndpoint(result);
+                        if (processAnswerMessageResult.success) {
+                            processAnswerSuccess = this.responseAdapter.processAnswerSuccess(result);
+                            return [2, processAnswerSuccess];
+                        }
+                        else {
+                            throw processAnswerMessageResult.result;
+                        }
+                        return [2];
+                }
+            });
+        });
+    };
     KCL.prototype.generateOfferWebRTCEndpoint = function (endpoint) {
         return __awaiter(this, void 0, void 0, function () {
             var message, result, generateOfferMessageResult, processOfferSuccess;
@@ -893,6 +917,9 @@ var WebRTCEndpoint = (function (_super) {
     WebRTCEndpoint.prototype.processOffer = function (offer) {
         return this.client.processOfferWebRTCEndpoint(offer, this);
     };
+    WebRTCEndpoint.prototype.processAnswer = function (answer) {
+        return this.client.processAnswerWebRTCEndpoint(answer, this);
+    };
     WebRTCEndpoint.prototype.generateOffer = function (offer) {
         return this.client.generateOfferWebRTCEndpoint(this);
     };
@@ -995,6 +1022,17 @@ var MessageFactory = (function () {
         };
         return message;
     };
+    MessageFactory.prototype.processAnswerWebRTCEndpoint = function (answer, endpointId) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "processAnswer",
+            object: endpointId,
+            operationParams: {
+                "answer": answer
+            }
+        };
+        return message;
+    };
     MessageFactory.prototype.generateOfferWebRTCEndpoint = function (endpointId) {
         var message = this.newMessage("invoke");
         message.params = {
@@ -1067,10 +1105,16 @@ var ResponseAdapter = (function () {
     ResponseAdapter.prototype.processOfferWebRTCEndpoint = function (response) {
         return this.operationError(response);
     };
+    ResponseAdapter.prototype.processAnswerWebRTCEndpoint = function (response) {
+        return this.operationError(response);
+    };
     ResponseAdapter.prototype.generateOfferWebRTCEndpoint = function (response) {
         return this.operationError(response);
     };
     ResponseAdapter.prototype.processOfferSuccess = function (response) {
+        return this.getValue(response);
+    };
+    ResponseAdapter.prototype.processAnswerSuccess = function (response) {
         return this.getValue(response);
     };
     ResponseAdapter.prototype.generateOfferSuccess = function (response) {

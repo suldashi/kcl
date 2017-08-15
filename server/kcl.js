@@ -159,6 +159,30 @@ var KCL = (function () {
             });
         });
     };
+    KCL.prototype.processAnswerWebRTCEndpoint = function (answer, endpoint) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, processAnswerMessageResult, processAnswerSuccess;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.processAnswerWebRTCEndpoint(answer, endpoint.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        console.log(result);
+                        processAnswerMessageResult = this.responseAdapter.processAnswerWebRTCEndpoint(result);
+                        if (processAnswerMessageResult.success) {
+                            processAnswerSuccess = this.responseAdapter.processAnswerSuccess(result);
+                            return [2, processAnswerSuccess];
+                        }
+                        else {
+                            throw processAnswerMessageResult.result;
+                        }
+                        return [2];
+                }
+            });
+        });
+    };
     KCL.prototype.generateOfferWebRTCEndpoint = function (endpoint) {
         return __awaiter(this, void 0, void 0, function () {
             var message, result, generateOfferMessageResult, processOfferSuccess;

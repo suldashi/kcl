@@ -87,6 +87,18 @@ export class MessageFactory {
 		return message;
 	}
 
+	public processAnswerWebRTCEndpoint(answer:string,endpointId:string) {
+		var message =this.newMessage("invoke");
+		message.params = {
+			operation:"processAnswer",
+			object:endpointId,
+			operationParams: {
+				"answer":answer
+			}
+		}
+		return message;
+	}
+
 
 	public generateOfferWebRTCEndpoint(endpointId:string) {
 		var message =this.newMessage("invoke");

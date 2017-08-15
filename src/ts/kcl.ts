@@ -75,6 +75,20 @@ export class KCL {
 		}
 	}
 
+	public async processAnswerWebRTCEndpoint(answer:string,endpoint:WebRTCEndpoint) {
+		var message = this.messageFactory.processAnswerWebRTCEndpoint(answer,endpoint.id);
+		let result = await this.ws.send(message);
+		console.log(result);
+		var processAnswerMessageResult = this.responseAdapter.processAnswerWebRTCEndpoint(result);
+		if(processAnswerMessageResult.success) {
+			var processAnswerSuccess = this.responseAdapter.processAnswerSuccess(result);
+			return processAnswerSuccess;
+		}
+		else {
+			throw processAnswerMessageResult.result;
+		}
+	}
+
 	public async generateOfferWebRTCEndpoint(endpoint:WebRTCEndpoint) {
 		var message = this.messageFactory.generateOfferWebRTCEndpoint(endpoint.id);
 		let result = await this.ws.send(message);
