@@ -633,7 +633,6 @@ var KCL = (function () {
                         return [4, this.ws.send(message)];
                     case 1:
                         result = _a.sent();
-                        console.log(result);
                         processAnswerMessageResult = this.responseAdapter.processAnswerWebRTCEndpoint(result);
                         if (processAnswerMessageResult.success) {
                             processAnswerSuccess = this.responseAdapter.processAnswerSuccess(result);
