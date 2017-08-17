@@ -113,10 +113,15 @@ var KCL = (function () {
         return __awaiter(this, void 0, void 0, function () {
             var message, result, playerEndpointId;
             return __generator(this, function (_a) {
-                message = this.messageFactory.createPlayerEndpoint(mediaPipeline.id, filePath);
-                result = this.ws.send(message);
-                playerEndpointId = this.responseAdapter.createPlayerEndpointSuccess(result);
-                return [2, new playerendpoint_1.PlayerEndpoint(playerEndpointId, this)];
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.createPlayerEndpoint(mediaPipeline.id, filePath);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        playerEndpointId = this.responseAdapter.createPlayerEndpointSuccess(result);
+                        return [2, new playerendpoint_1.PlayerEndpoint(playerEndpointId, this)];
+                }
             });
         });
     };

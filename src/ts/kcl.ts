@@ -50,7 +50,7 @@ export class KCL {
 
 	public async createPlayerEndpoint(mediaPipeline:MediaPipeline,filePath) {
 		var message = this.messageFactory.createPlayerEndpoint(mediaPipeline.id,filePath);
-		let result = this.ws.send(message)
+		let result = await this.ws.send(message)
 		var playerEndpointId = this.responseAdapter.createPlayerEndpointSuccess(result);
 		return new PlayerEndpoint(playerEndpointId,this);
 	}
