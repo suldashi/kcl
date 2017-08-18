@@ -4,7 +4,8 @@
         "lib":["es2016","es2016.array.include","dom"],
 		"noImplicitAny":false,
 		"noEmitOnError":true,
-		"removeComments": true
+        "removeComments": true,
+        "declaration": true
     },
     "include": [
         "src/ts/**/*"

@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "browser",
+            "type": "shell",
+            "command": "gulp browser"
+        },
+        {
+            "taskName": "server",
+            "type": "shell",
+            "command": "gulp server"
+        }
+    ]
+}
