@@ -77,6 +77,16 @@ export class WebRTCEndpoint extends MediaElement {
 
 	/*
 
+	This method registers a callback that receives messages everytime the state of the webrtc endpoint changes.
+
+	*/
+
+	public registerConnectionStateChanged(callback) {
+		return this.client.registerConnectionStateChanged(this,callback);
+	}
+
+	/*
+
 	This method starts producing the ice candidates from the endpoint. These candidates should be sent to the client counterpart.
 
 	*/

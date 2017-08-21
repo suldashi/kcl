@@ -107,6 +107,14 @@ var MessageFactory = (function () {
         };
         return message;
     };
+    MessageFactory.prototype.registerConnectionStateChanged = function (webRTCEndpointId) {
+        var message = this.newMessage("subscribe");
+        message.params = {
+            type: "ConnectionStateChanged",
+            object: webRTCEndpointId,
+        };
+        return message;
+    };
     MessageFactory.prototype.gatherIceCandidates = function (webRTCEndpointId) {
         var message = this.newMessage("invoke");
         message.params = {

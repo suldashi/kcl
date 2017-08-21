@@ -19,7 +19,7 @@ export class KCL {
 
 	public async ping() {
 		var message = this.messageFactory.createPing();
-		return this.ws.send(message);
+		return await this.ws.send(message);
 	}
 
 	
@@ -127,7 +127,18 @@ export class KCL {
 
 	public async registerIceCandidateFound(webRTCEndpoint,callback) {
 		var message = this.messageFactory.registerIceCandidateFound(webRTCEndpoint.id);
-		this.ws.on(webRTCEndpoint.id,"IceCandidateFound",callback);
+		this.ws.on(webRTCEndpoint.id,"IceCandidateFound",(candidate) => callback(candidate.data.candidate));
+		let result = await this.ws.send(message);
+		return true;
+	}
+
+	public async registerConnectionStateChanged(webRTCEndpoint,callback) {
+		var message = this.messageFactory.registerConnectionStateChanged(webRTCEndpoint.id);
+		this.ws.on(webRTCEndpoint.id,"ConnectionStateChanged",(state) => {
+			callback({
+				state:state.data.newState
+			});
+		});
 		let result = await this.ws.send(message);
 		return true;
 	}

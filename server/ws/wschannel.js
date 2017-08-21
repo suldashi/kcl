@@ -43,7 +43,7 @@ var WSChannel = (function () {
             else {
                 var index = data.params.value.object + "|" + data.params.value.type;
                 for (var i in _this.eventListeners[index]) {
-                    _this.eventListeners[index][i](data.params.value.data.candidate);
+                    _this.eventListeners[index][i](data.params.value);
                 }
             }
         };

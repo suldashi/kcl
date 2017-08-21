@@ -7,6 +7,7 @@ export declare class WebRTCEndpoint extends MediaElement {
     generateOffer(offer: string): Promise<any>;
     addIceCandidate(candidate: any): Promise<boolean>;
     registerIceCandidateFound(callback: any): Promise<boolean>;
+    registerConnectionStateChanged(callback: any): Promise<boolean>;
     gatherIceCandidates(): Promise<boolean>;
     release(): Promise<boolean>;
 }

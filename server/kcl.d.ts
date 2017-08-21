@@ -20,4 +20,5 @@ export declare class KCL {
     addIceCandidate(webRTCEndpoint: any, iceCandidate: any): Promise<boolean>;
     gatherIceCandidates(webRTCEndpoint: any): Promise<boolean>;
     registerIceCandidateFound(webRTCEndpoint: any, callback: any): Promise<boolean>;
+    registerConnectionStateChanged(webRTCEndpoint: any, callback: any): Promise<boolean>;
 }

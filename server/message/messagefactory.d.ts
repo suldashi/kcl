@@ -11,6 +11,7 @@ export declare class MessageFactory {
     processAnswerWebRTCEndpoint(answer: string, endpointId: string): WSMessage;
     generateOfferWebRTCEndpoint(endpointId: string): WSMessage;
     registerIceCandidateFound(webRTCEndpointId: any): WSMessage;
+    registerConnectionStateChanged(webRTCEndpointId: any): WSMessage;
     gatherIceCandidates(webRTCEndpointId: any): WSMessage;
     connectSourceToSink(sourceId: string, sinkId: string): WSMessage;
     private newMessage(method);

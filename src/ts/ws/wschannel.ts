@@ -51,7 +51,7 @@ export class WSChannel {
 	    	else {
 	    		var index = data.params.value.object + "|" + data.params.value.type;
 	    		for(var i in this.eventListeners[index]) {
-					this.eventListeners[index][i](data.params.value.data.candidate);
+					this.eventListeners[index][i](data.params.value);
 				}
 	    	}
 	    }

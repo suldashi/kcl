@@ -51,8 +51,12 @@ var KCL = (function () {
         return __awaiter(this, void 0, void 0, function () {
             var message;
             return __generator(this, function (_a) {
-                message = this.messageFactory.createPing();
-                return [2, this.ws.send(message)];
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.createPing();
+                        return [4, this.ws.send(message)];
+                    case 1: return [2, _a.sent()];
+                }
             });
         });
     };
@@ -264,7 +268,27 @@ var KCL = (function () {
                 switch (_a.label) {
                     case 0:
                         message = this.messageFactory.registerIceCandidateFound(webRTCEndpoint.id);
-                        this.ws.on(webRTCEndpoint.id, "IceCandidateFound", callback);
+                        this.ws.on(webRTCEndpoint.id, "IceCandidateFound", function (candidate) { return callback(candidate.data.candidate); });
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, true];
+                }
+            });
+        });
+    };
+    KCL.prototype.registerConnectionStateChanged = function (webRTCEndpoint, callback) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.registerConnectionStateChanged(webRTCEndpoint.id);
+                        this.ws.on(webRTCEndpoint.id, "ConnectionStateChanged", function (state) {
+                            callback({
+                                state: state.data.newState
+                            });
+                        });
                         return [4, this.ws.send(message)];
                     case 1:
                         result = _a.sent();

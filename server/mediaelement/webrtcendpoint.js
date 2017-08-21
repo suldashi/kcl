@@ -31,6 +31,9 @@ var WebRTCEndpoint = (function (_super) {
     WebRTCEndpoint.prototype.registerIceCandidateFound = function (callback) {
         return this.client.registerIceCandidateFound(this, callback);
     };
+    WebRTCEndpoint.prototype.registerConnectionStateChanged = function (callback) {
+        return this.client.registerConnectionStateChanged(this, callback);
+    };
     WebRTCEndpoint.prototype.gatherIceCandidates = function () {
         return this.client.gatherIceCandidates(this);
     };

@@ -118,6 +118,15 @@ export class MessageFactory {
 		return message;
 	}
 
+	public registerConnectionStateChanged(webRTCEndpointId) {
+		var message =this.newMessage("subscribe");
+		message.params = {
+			type:"ConnectionStateChanged",
+			object:webRTCEndpointId,
+		}
+		return message;
+	}
+
 	public gatherIceCandidates(webRTCEndpointId) {
 		var message =this.newMessage("invoke");
 		message.params = {
