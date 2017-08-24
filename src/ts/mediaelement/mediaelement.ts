@@ -15,4 +15,8 @@ export class MediaElement {
 		this.sink = target;
 		return this;
 	}
+
+	public release() {
+		return this.client.releaseElement(this);
+	}
 }

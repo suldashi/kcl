@@ -6,4 +6,5 @@ export declare class MediaElement {
     sink: MediaElement;
     constructor(id: string, client: KCL);
     connectToSink(target: MediaElement): Promise<this>;
+    release(): Promise<boolean>;
 }

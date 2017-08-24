@@ -828,6 +828,9 @@ var MediaElement = (function () {
             });
         });
     };
+    MediaElement.prototype.release = function () {
+        return this.client.releaseElement(this);
+    };
     return MediaElement;
 }());
 exports.MediaElement = MediaElement;
@@ -962,9 +965,6 @@ var WebRTCEndpoint = (function (_super) {
     };
     WebRTCEndpoint.prototype.gatherIceCandidates = function () {
         return this.client.gatherIceCandidates(this);
-    };
-    WebRTCEndpoint.prototype.release = function () {
-        return this.client.releaseElement(this);
     };
     return WebRTCEndpoint;
 }(mediaelement_1.MediaElement));

@@ -9,5 +9,4 @@ export declare class WebRTCEndpoint extends MediaElement {
     registerIceCandidateFound(callback: any): Promise<boolean>;
     registerConnectionStateChanged(callback: any): Promise<boolean>;
     gatherIceCandidates(): Promise<boolean>;
-    release(): Promise<boolean>;
 }

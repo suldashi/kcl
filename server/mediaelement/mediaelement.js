@@ -54,6 +54,9 @@ var MediaElement = (function () {
             });
         });
     };
+    MediaElement.prototype.release = function () {
+        return this.client.releaseElement(this);
+    };
     return MediaElement;
 }());
 exports.MediaElement = MediaElement;

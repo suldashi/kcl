@@ -93,8 +93,4 @@ export class WebRTCEndpoint extends MediaElement {
 	public gatherIceCandidates() {
 		return this.client.gatherIceCandidates(this);
 	}
-
-	public release() {
-		return this.client.releaseElement(this);
-	}
 }
