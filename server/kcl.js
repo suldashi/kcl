@@ -297,6 +297,66 @@ var KCL = (function () {
             });
         });
     };
+    KCL.prototype.setMinVideoSendBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMinVideoSendBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
+    KCL.prototype.setMaxVideoSendBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMaxVideoSendBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
+    KCL.prototype.setMinVideoRecvBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMinVideoRecvBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
+    KCL.prototype.setMaxVideoRecvBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMaxVideoRecvBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
     return KCL;
 }());
 exports.KCL = KCL;

@@ -37,6 +37,18 @@ var WebRTCEndpoint = (function (_super) {
     WebRTCEndpoint.prototype.gatherIceCandidates = function () {
         return this.client.gatherIceCandidates(this);
     };
+    WebRTCEndpoint.prototype.setMinVideoSendBandwidth = function (bitrate) {
+        return this.client.setMinVideoSendBandwidth(this, bitrate);
+    };
+    WebRTCEndpoint.prototype.setMaxVideoSendBandwidth = function (bitrate) {
+        return this.client.setMaxVideoSendBandwidth(this, bitrate);
+    };
+    WebRTCEndpoint.prototype.setMinVideoRecvBandwidth = function (bitrate) {
+        return this.client.setMinVideoRecvBandwidth(this, bitrate);
+    };
+    WebRTCEndpoint.prototype.setMaxVideoRecvBandwidth = function (bitrate) {
+        return this.client.setMaxVideoRecvBandwidth(this, bitrate);
+    };
     return WebRTCEndpoint;
 }(mediaelement_1.MediaElement));
 exports.WebRTCEndpoint = WebRTCEndpoint;

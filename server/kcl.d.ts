@@ -21,4 +21,8 @@ export declare class KCL {
     gatherIceCandidates(webRTCEndpoint: any): Promise<boolean>;
     registerIceCandidateFound(webRTCEndpoint: any, callback: any): Promise<boolean>;
     registerConnectionStateChanged(webRTCEndpoint: any, callback: any): Promise<boolean>;
+    setMinVideoSendBandwidth(webRTCEndpoint: any, bitrate: any): Promise<any>;
+    setMaxVideoSendBandwidth(webRTCEndpoint: any, bitrate: any): Promise<any>;
+    setMinVideoRecvBandwidth(webRTCEndpoint: any, bitrate: any): Promise<any>;
+    setMaxVideoRecvBandwidth(webRTCEndpoint: any, bitrate: any): Promise<any>;
 }

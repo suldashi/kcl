@@ -93,4 +93,26 @@ export class WebRTCEndpoint extends MediaElement {
 	public gatherIceCandidates() {
 		return this.client.gatherIceCandidates(this);
 	}
+
+	/*
+
+	Bandwidth control functions. These need to be called before sdp negotiation.
+
+	*/
+
+	public setMinVideoSendBandwidth(bitrate) {
+		return this.client.setMinVideoSendBandwidth(this,bitrate);
+	}
+
+	public setMaxVideoSendBandwidth(bitrate) {
+		return this.client.setMaxVideoSendBandwidth(this,bitrate);
+	}
+
+	public setMinVideoRecvBandwidth(bitrate) {
+		return this.client.setMinVideoRecvBandwidth(this,bitrate);
+	}
+
+	public setMaxVideoRecvBandwidth(bitrate) {
+		return this.client.setMaxVideoRecvBandwidth(this,bitrate);
+	}
 }

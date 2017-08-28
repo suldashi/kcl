@@ -134,6 +134,50 @@ var MessageFactory = (function () {
         };
         return message;
     };
+    MessageFactory.prototype.setMinVideoSendBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMinVideoSendBandwidth",
+            object: sourceId,
+            operationParams: {
+                "minVideoSendBandwidth": bitrate
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.setMaxVideoSendBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMaxVideoSendBandwidth",
+            object: sourceId,
+            operationParams: {
+                "maxVideoSendBandwidth": bitrate
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.setMinVideoRecvBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMinVideoRecvBandwidth",
+            object: sourceId,
+            operationParams: {
+                "minVideoRecvBandwidth": bitrate
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.setMaxVideoRecvBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMaxVideoRecvBandwidth",
+            object: sourceId,
+            operationParams: {
+                "maxVideoRecvBandwidth": bitrate
+            }
+        };
+        return message;
+    };
     MessageFactory.prototype.newMessage = function (method) {
         var message = new wsmessage_1.WSMessage();
         message.method = method;

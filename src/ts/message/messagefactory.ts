@@ -148,6 +148,54 @@ export class MessageFactory {
 		return message;
 	}
 
+	public setMinVideoSendBandwidth(sourceId:string,bitrate:number) {
+		var message =this.newMessage("invoke");
+		message.params = {
+			operation:"setMinVideoSendBandwidth",
+			object:sourceId,
+			operationParams: {
+				"minVideoSendBandwidth":bitrate
+			}
+		}
+		return message;
+	}
+
+	public setMaxVideoSendBandwidth(sourceId:string,bitrate:number) {
+		var message =this.newMessage("invoke");
+		message.params = {
+			operation:"setMaxVideoSendBandwidth",
+			object:sourceId,
+			operationParams: {
+				"maxVideoSendBandwidth":bitrate
+			}
+		}
+		return message;
+	}
+
+	public setMinVideoRecvBandwidth(sourceId:string,bitrate:number) {
+		var message =this.newMessage("invoke");
+		message.params = {
+			operation:"setMinVideoRecvBandwidth",
+			object:sourceId,
+			operationParams: {
+				"minVideoRecvBandwidth":bitrate
+			}
+		}
+		return message;
+	}
+
+	public setMaxVideoRecvBandwidth(sourceId:string,bitrate:number) {
+		var message =this.newMessage("invoke");
+		message.params = {
+			operation:"setMaxVideoRecvBandwidth",
+			object:sourceId,
+			operationParams: {
+				"maxVideoRecvBandwidth":bitrate
+			}
+		}
+		return message;
+	}
+
 	private newMessage(method:string):WSMessage {
 		var message = new WSMessage();
 		message.method = method;

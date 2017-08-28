@@ -143,6 +143,30 @@ export class KCL {
 		return true;
 	}
 
+	public async setMinVideoSendBandwidth(webRTCEndpoint,bitrate) {
+		var message = this.messageFactory.setMinVideoSendBandwidth(webRTCEndpoint.id,bitrate);
+		let result = await this.ws.send(message);
+		return result;
+	}
+
+	public async setMaxVideoSendBandwidth(webRTCEndpoint,bitrate) {
+		var message = this.messageFactory.setMaxVideoSendBandwidth(webRTCEndpoint.id,bitrate);
+		let result = await this.ws.send(message);
+		return result;
+	}
+
+	public async setMinVideoRecvBandwidth(webRTCEndpoint,bitrate) {
+		var message = this.messageFactory.setMinVideoRecvBandwidth(webRTCEndpoint.id,bitrate);
+		let result = await this.ws.send(message);
+		return result;
+	}
+
+	public async setMaxVideoRecvBandwidth(webRTCEndpoint,bitrate) {
+		var message = this.messageFactory.setMaxVideoRecvBandwidth(webRTCEndpoint.id,bitrate);
+		let result = await this.ws.send(message);
+		return result;
+	}
+
 	
 }
 declare var module;

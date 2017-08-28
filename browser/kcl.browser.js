@@ -761,6 +761,66 @@ var KCL = (function () {
             });
         });
     };
+    KCL.prototype.setMinVideoSendBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMinVideoSendBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
+    KCL.prototype.setMaxVideoSendBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMaxVideoSendBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
+    KCL.prototype.setMinVideoRecvBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMinVideoRecvBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
+    KCL.prototype.setMaxVideoRecvBandwidth = function (webRTCEndpoint, bitrate) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.setMaxVideoRecvBandwidth(webRTCEndpoint.id, bitrate);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        return [2, result];
+                }
+            });
+        });
+    };
     return KCL;
 }());
 exports.KCL = KCL;
@@ -966,6 +1026,18 @@ var WebRTCEndpoint = (function (_super) {
     WebRTCEndpoint.prototype.gatherIceCandidates = function () {
         return this.client.gatherIceCandidates(this);
     };
+    WebRTCEndpoint.prototype.setMinVideoSendBandwidth = function (bitrate) {
+        return this.client.setMinVideoSendBandwidth(this, bitrate);
+    };
+    WebRTCEndpoint.prototype.setMaxVideoSendBandwidth = function (bitrate) {
+        return this.client.setMaxVideoSendBandwidth(this, bitrate);
+    };
+    WebRTCEndpoint.prototype.setMinVideoRecvBandwidth = function (bitrate) {
+        return this.client.setMinVideoRecvBandwidth(this, bitrate);
+    };
+    WebRTCEndpoint.prototype.setMaxVideoRecvBandwidth = function (bitrate) {
+        return this.client.setMaxVideoRecvBandwidth(this, bitrate);
+    };
     return WebRTCEndpoint;
 }(mediaelement_1.MediaElement));
 exports.WebRTCEndpoint = WebRTCEndpoint;
@@ -1103,6 +1175,50 @@ var MessageFactory = (function () {
             object: sourceId,
             operationParams: {
                 "sink": sinkId
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.setMinVideoSendBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMinVideoSendBandwidth",
+            object: sourceId,
+            operationParams: {
+                "minVideoSendBandwidth": bitrate
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.setMaxVideoSendBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMaxVideoSendBandwidth",
+            object: sourceId,
+            operationParams: {
+                "maxVideoSendBandwidth": bitrate
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.setMinVideoRecvBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMinVideoRecvBandwidth",
+            object: sourceId,
+            operationParams: {
+                "minVideoRecvBandwidth": bitrate
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.setMaxVideoRecvBandwidth = function (sourceId, bitrate) {
+        var message = this.newMessage("invoke");
+        message.params = {
+            operation: "setMaxVideoRecvBandwidth",
+            object: sourceId,
+            operationParams: {
+                "maxVideoRecvBandwidth": bitrate
             }
         };
         return message;

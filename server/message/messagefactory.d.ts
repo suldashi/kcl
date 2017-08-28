@@ -14,5 +14,9 @@ export declare class MessageFactory {
     registerConnectionStateChanged(webRTCEndpointId: any): WSMessage;
     gatherIceCandidates(webRTCEndpointId: any): WSMessage;
     connectSourceToSink(sourceId: string, sinkId: string): WSMessage;
+    setMinVideoSendBandwidth(sourceId: string, bitrate: number): WSMessage;
+    setMaxVideoSendBandwidth(sourceId: string, bitrate: number): WSMessage;
+    setMinVideoRecvBandwidth(sourceId: string, bitrate: number): WSMessage;
+    setMaxVideoRecvBandwidth(sourceId: string, bitrate: number): WSMessage;
     private newMessage(method);
 }
