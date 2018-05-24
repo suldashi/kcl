@@ -1332,10 +1332,6 @@ var WSChannel = (function () {
             catch (e) {
                 reject(e);
             }
-            setTimeout(function () {
-                reject("timeoutError");
-                delete _this.messageListeners[el.id];
-            }, 10000);
         };
         this.ws = new websocket_1.WS(wsAddress, undefined, websocket_1.wsOpts);
         this.ws.onopen = function () {

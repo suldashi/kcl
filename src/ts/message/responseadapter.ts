@@ -19,6 +19,10 @@ export class ResponseAdapter {
 		return this.getValue(response);
 	}
 
+	public createCompositeSuccess(response):string {
+		return this.getValue(response);
+	}
+
 	public playPlayerEndpoint(response) {
 		return this.operationError(response);
 	}

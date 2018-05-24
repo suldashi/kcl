@@ -65,6 +65,17 @@ export class MessageFactory {
 		return message;
 	}
 
+	public createComposite(pipelineId:string) {
+		var message =this.newMessage("create");
+		message.params = {
+			type:"Composite",
+			constructorParams: {
+				mediaPipeline:pipelineId,
+			}
+		}
+		return message;
+	}
+
 	public playPlayerEndpoint(playerId:string) {
 		var message =this.newMessage("invoke");
 		message.params = {

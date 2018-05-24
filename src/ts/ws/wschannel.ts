@@ -20,10 +20,6 @@ export class WSChannel {
 			catch(e) {
 				reject(e);
 			}
-			setTimeout(()=>{
-				reject("timeoutError");
-				delete this.messageListeners[el.id];
-			},10000);
 		}
 
 	    this.ws = new WS(wsAddress,undefined,wsOpts);

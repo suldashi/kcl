@@ -62,6 +62,13 @@ export class KCL {
 		return new WebRTCEndpoint(webRTCEndpointId,this);
 	}
 
+	public async createComposite(mediaPipeline:MediaPipeline) {
+		var message = this.messageFactory.createComposite(mediaPipeline.id);
+		let result = await this.ws.send(message)
+		var webRTCEndpointId = this.responseAdapter.createCompositeSuccess(result);
+		return new WebRTCEndpoint(webRTCEndpointId,this);
+	}
+
 	public async processOfferWebRTCEndpoint(offer:string,endpoint:WebRTCEndpoint) {
 		var message = this.messageFactory.processOfferWebRTCEndpoint(offer,endpoint.id);
 		let result = await this.ws.send(message);
