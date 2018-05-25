@@ -60,6 +60,26 @@ var MessageFactory = (function () {
         };
         return message;
     };
+    MessageFactory.prototype.createComposite = function (pipelineId) {
+        var message = this.newMessage("create");
+        message.params = {
+            type: "Composite",
+            constructorParams: {
+                mediaPipeline: pipelineId,
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.createHubPort = function (pipelineId) {
+        var message = this.newMessage("create");
+        message.params = {
+            type: "HubPort",
+            constructorParams: {
+                mediaPipeline: pipelineId,
+            }
+        };
+        return message;
+    };
     MessageFactory.prototype.playPlayerEndpoint = function (playerId) {
         var message = this.newMessage("invoke");
         message.params = {

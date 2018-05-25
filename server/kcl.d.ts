@@ -2,6 +2,8 @@ import { MediaPipeline } from "./mediaelement/mediapipeline";
 import { MediaElement } from "./mediaelement/mediaelement";
 import { WebRTCEndpoint } from "./mediaelement/webrtcendpoint";
 import { PlayerEndpoint } from "./mediaelement/playerendpoint";
+import { Composite } from "./mediaelement/composite";
+import { HubPort } from "./mediaelement/hubport";
 export declare class KCL {
     private messageFactory;
     private ws;
@@ -13,6 +15,8 @@ export declare class KCL {
     connectSourceToSink(source: MediaElement, sink: MediaElement): Promise<boolean>;
     createPlayerEndpoint(mediaPipeline: MediaPipeline, filePath: any): Promise<PlayerEndpoint>;
     createWebRTCEndpoint(mediaPipeline: MediaPipeline): Promise<WebRTCEndpoint>;
+    createComposite(mediaPipeline: MediaPipeline): Promise<Composite>;
+    createHubPort(mediaPipeline: MediaPipeline): Promise<HubPort>;
     processOfferWebRTCEndpoint(offer: string, endpoint: WebRTCEndpoint): Promise<any>;
     processAnswerWebRTCEndpoint(answer: string, endpoint: WebRTCEndpoint): Promise<any>;
     generateOfferWebRTCEndpoint(endpoint: WebRTCEndpoint): Promise<any>;

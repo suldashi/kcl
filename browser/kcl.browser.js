@@ -505,6 +505,8 @@ var wschannel_1 = require("./ws/wschannel");
 var mediapipeline_1 = require("./mediaelement/mediapipeline");
 var webrtcendpoint_1 = require("./mediaelement/webrtcendpoint");
 var playerendpoint_1 = require("./mediaelement/playerendpoint");
+var composite_1 = require("./mediaelement/composite");
+var hubport_1 = require("./mediaelement/hubport");
 var KCL = (function () {
     function KCL(wsAddress) {
         this.messageFactory = new messagefactory_1.MessageFactory();
@@ -605,6 +607,38 @@ var KCL = (function () {
                         result = _a.sent();
                         webRTCEndpointId = this.responseAdapter.createWebRTCEndpointSuccess(result);
                         return [2, new webrtcendpoint_1.WebRTCEndpoint(webRTCEndpointId, this)];
+                }
+            });
+        });
+    };
+    KCL.prototype.createComposite = function (mediaPipeline) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, CompositeId;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.createComposite(mediaPipeline.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        CompositeId = this.responseAdapter.createCompositeSuccess(result);
+                        return [2, new composite_1.Composite(CompositeId, this)];
+                }
+            });
+        });
+    };
+    KCL.prototype.createHubPort = function (mediaPipeline) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, HubPortId;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.createComposite(mediaPipeline.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        HubPortId = this.responseAdapter.createHubPortSuccess(result);
+                        return [2, new hubport_1.HubPort(HubPortId, this)];
                 }
             });
         });
@@ -831,7 +865,53 @@ else {
     module.exports = KCL;
 }
 
-},{"./mediaelement/mediapipeline":10,"./mediaelement/playerendpoint":11,"./mediaelement/webrtcendpoint":12,"./message/messagefactory":13,"./message/responseadapter":14,"./ws/wschannel":17}],9:[function(require,module,exports){
+},{"./mediaelement/composite":9,"./mediaelement/hubport":10,"./mediaelement/mediapipeline":12,"./mediaelement/playerendpoint":13,"./mediaelement/webrtcendpoint":14,"./message/messagefactory":15,"./message/responseadapter":16,"./ws/wschannel":19}],9:[function(require,module,exports){
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var mediaelement_1 = require("./mediaelement");
+var Composite = (function (_super) {
+    __extends(Composite, _super);
+    function Composite(id, client) {
+        return _super.call(this, id, client) || this;
+    }
+    return Composite;
+}(mediaelement_1.MediaElement));
+exports.Composite = Composite;
+
+},{"./mediaelement":11}],10:[function(require,module,exports){
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var mediaelement_1 = require("./mediaelement");
+var HubPort = (function (_super) {
+    __extends(HubPort, _super);
+    function HubPort(id, client) {
+        return _super.call(this, id, client) || this;
+    }
+    return HubPort;
+}(mediaelement_1.MediaElement));
+exports.HubPort = HubPort;
+
+},{"./mediaelement":11}],11:[function(require,module,exports){
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -895,7 +975,7 @@ var MediaElement = (function () {
 }());
 exports.MediaElement = MediaElement;
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -960,7 +1040,7 @@ var MediaPipeline = (function () {
 }());
 exports.MediaPipeline = MediaPipeline;
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -986,7 +1066,7 @@ var PlayerEndpoint = (function (_super) {
 }(mediaelement_1.MediaElement));
 exports.PlayerEndpoint = PlayerEndpoint;
 
-},{"./mediaelement":9}],12:[function(require,module,exports){
+},{"./mediaelement":11}],14:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1042,7 +1122,7 @@ var WebRTCEndpoint = (function (_super) {
 }(mediaelement_1.MediaElement));
 exports.WebRTCEndpoint = WebRTCEndpoint;
 
-},{"./mediaelement":9}],13:[function(require,module,exports){
+},{"./mediaelement":11}],15:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var uuidPackage = require("uuid");
@@ -1099,6 +1179,26 @@ var MessageFactory = (function () {
         var message = this.newMessage("create");
         message.params = {
             type: "WebRtcEndpoint",
+            constructorParams: {
+                mediaPipeline: pipelineId,
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.createComposite = function (pipelineId) {
+        var message = this.newMessage("create");
+        message.params = {
+            type: "Composite",
+            constructorParams: {
+                mediaPipeline: pipelineId,
+            }
+        };
+        return message;
+    };
+    MessageFactory.prototype.createHubPort = function (pipelineId) {
+        var message = this.newMessage("create");
+        message.params = {
+            type: "HubPort",
             constructorParams: {
                 mediaPipeline: pipelineId,
             }
@@ -1233,7 +1333,7 @@ var MessageFactory = (function () {
 }());
 exports.MessageFactory = MessageFactory;
 
-},{"./wsmessage":15,"uuid":3}],14:[function(require,module,exports){
+},{"./wsmessage":17,"uuid":3}],16:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ResponseAdapter = (function () {
@@ -1252,6 +1352,12 @@ var ResponseAdapter = (function () {
         return this.getValue(response);
     };
     ResponseAdapter.prototype.createWebRTCEndpointSuccess = function (response) {
+        return this.getValue(response);
+    };
+    ResponseAdapter.prototype.createCompositeSuccess = function (response) {
+        return this.getValue(response);
+    };
+    ResponseAdapter.prototype.createHubPortSuccess = function (response) {
         return this.getValue(response);
     };
     ResponseAdapter.prototype.playPlayerEndpoint = function (response) {
@@ -1296,7 +1402,7 @@ var ResponseAdapter = (function () {
 }());
 exports.ResponseAdapter = ResponseAdapter;
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var WSMessage = (function () {
@@ -1307,13 +1413,13 @@ var WSMessage = (function () {
 }());
 exports.WSMessage = WSMessage;
 
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WS = require("reconnecting-websocket");
 exports.wsOpts = { constructor: WebSocket };
 
-},{"reconnecting-websocket":2}],17:[function(require,module,exports){
+},{"reconnecting-websocket":2}],19:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var MiniMQ = require("minimq");
@@ -1374,4 +1480,4 @@ var WSChannel = (function () {
 }());
 exports.WSChannel = WSChannel;
 
-},{"./websocket":16,"minimq":1}]},{},[8]);
+},{"./websocket":18,"minimq":1}]},{},[8]);

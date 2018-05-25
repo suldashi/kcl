@@ -18,6 +18,12 @@ var ResponseAdapter = (function () {
     ResponseAdapter.prototype.createWebRTCEndpointSuccess = function (response) {
         return this.getValue(response);
     };
+    ResponseAdapter.prototype.createCompositeSuccess = function (response) {
+        return this.getValue(response);
+    };
+    ResponseAdapter.prototype.createHubPortSuccess = function (response) {
+        return this.getValue(response);
+    };
     ResponseAdapter.prototype.playPlayerEndpoint = function (response) {
         return this.operationError(response);
     };

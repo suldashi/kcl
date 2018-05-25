@@ -6,6 +6,8 @@ export declare class MessageFactory {
     addIceCandidate(webRTCEndpointId: any, candidate: any): WSMessage;
     createPlayerEndpoint(pipelineId: string, filePath: any): WSMessage;
     createWebRTCEndpoint(pipelineId: string): WSMessage;
+    createComposite(pipelineId: string): WSMessage;
+    createHubPort(pipelineId: string): WSMessage;
     playPlayerEndpoint(playerId: string): WSMessage;
     processOfferWebRTCEndpoint(offer: string, endpointId: string): WSMessage;
     processAnswerWebRTCEndpoint(answer: string, endpointId: string): WSMessage;

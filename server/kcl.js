@@ -41,6 +41,8 @@ var wschannel_1 = require("./ws/wschannel");
 var mediapipeline_1 = require("./mediaelement/mediapipeline");
 var webrtcendpoint_1 = require("./mediaelement/webrtcendpoint");
 var playerendpoint_1 = require("./mediaelement/playerendpoint");
+var composite_1 = require("./mediaelement/composite");
+var hubport_1 = require("./mediaelement/hubport");
 var KCL = (function () {
     function KCL(wsAddress) {
         this.messageFactory = new messagefactory_1.MessageFactory();
@@ -141,6 +143,38 @@ var KCL = (function () {
                         result = _a.sent();
                         webRTCEndpointId = this.responseAdapter.createWebRTCEndpointSuccess(result);
                         return [2, new webrtcendpoint_1.WebRTCEndpoint(webRTCEndpointId, this)];
+                }
+            });
+        });
+    };
+    KCL.prototype.createComposite = function (mediaPipeline) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, CompositeId;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.createComposite(mediaPipeline.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        CompositeId = this.responseAdapter.createCompositeSuccess(result);
+                        return [2, new composite_1.Composite(CompositeId, this)];
+                }
+            });
+        });
+    };
+    KCL.prototype.createHubPort = function (mediaPipeline) {
+        return __awaiter(this, void 0, void 0, function () {
+            var message, result, HubPortId;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        message = this.messageFactory.createComposite(mediaPipeline.id);
+                        return [4, this.ws.send(message)];
+                    case 1:
+                        result = _a.sent();
+                        HubPortId = this.responseAdapter.createHubPortSuccess(result);
+                        return [2, new hubport_1.HubPort(HubPortId, this)];
                 }
             });
         });

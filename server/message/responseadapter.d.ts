@@ -4,6 +4,8 @@ export declare class ResponseAdapter {
     createPipelineSuccess(response: any): string;
     createPlayerEndpointSuccess(response: any): string;
     createWebRTCEndpointSuccess(response: any): string;
+    createCompositeSuccess(response: any): string;
+    createHubPortSuccess(response: any): string;
     playPlayerEndpoint(response: any): {
         "success": boolean;
         "result": any;
