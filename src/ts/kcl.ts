@@ -5,6 +5,8 @@ import {MediaPipeline} from "./mediaelement/mediapipeline";
 import {MediaElement} from "./mediaelement/mediaelement";
 import {WebRTCEndpoint} from "./mediaelement/webrtcendpoint";
 import {PlayerEndpoint} from "./mediaelement/playerendpoint";
+import {Composite} from "./mediaelement/composite";
+import {HubPort} from "./mediaelement/hubport";
 
 export class KCL {
 	private messageFactory:MessageFactory;
@@ -65,8 +67,15 @@ export class KCL {
 	public async createComposite(mediaPipeline:MediaPipeline) {
 		var message = this.messageFactory.createComposite(mediaPipeline.id);
 		let result = await this.ws.send(message)
-		var webRTCEndpointId = this.responseAdapter.createCompositeSuccess(result);
-		return new WebRTCEndpoint(webRTCEndpointId,this);
+		var CompositeId = this.responseAdapter.createCompositeSuccess(result);
+		return new Composite(CompositeId,this);
+	}
+
+	public async createHubPort(mediaPipeline:MediaPipeline) {
+		var message = this.messageFactory.createComposite(mediaPipeline.id);
+		let result = await this.ws.send(message)
+		var HubPortId = this.responseAdapter.createHubPortSuccess(result);
+		return new HubPort(HubPortId,this);
 	}
 
 	public async processOfferWebRTCEndpoint(offer:string,endpoint:WebRTCEndpoint) {

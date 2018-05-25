@@ -76,6 +76,17 @@ export class MessageFactory {
 		return message;
 	}
 
+	public createHubPort(pipelineId:string) {
+		var message =this.newMessage("create");
+		message.params = {
+			type:"HubPort",
+			constructorParams: {
+				mediaPipeline:pipelineId,
+			}
+		}
+		return message;
+	}
+
 	public playPlayerEndpoint(playerId:string) {
 		var message =this.newMessage("invoke");
 		message.params = {
