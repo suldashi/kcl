@@ -72,7 +72,7 @@ export class KCL {
 	}
 
 	public async createHubPort(mediaPipeline:MediaPipeline) {
-		var message = this.messageFactory.createComposite(mediaPipeline.id);
+		var message = this.messageFactory.createHubPort(mediaPipeline.id);
 		let result = await this.ws.send(message)
 		var HubPortId = this.responseAdapter.createHubPortSuccess(result);
 		return new HubPort(HubPortId,this);
