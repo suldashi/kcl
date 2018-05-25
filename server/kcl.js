@@ -169,7 +169,7 @@ var KCL = (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        message = this.messageFactory.createComposite(mediaPipeline.id);
+                        message = this.messageFactory.createHubPort(mediaPipeline.id);
                         return [4, this.ws.send(message)];
                     case 1:
                         result = _a.sent();
