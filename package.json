@@ -1,6 +1,6 @@
 {
   "name": "kcl",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "Promise-based JS client for connecting and managing the Kurento Media Server. Works in Node.js or the browser.",
   "main": "server/kcl.js",
   "types": "server/kcl.d.ts",
