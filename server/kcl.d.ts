@@ -8,7 +8,7 @@ export declare class KCL {
     private messageFactory;
     private ws;
     private responseAdapter;
-    constructor(wsAddress: string);
+    constructor(wsAddress: string, debug?: boolean);
     ping(): Promise<any>;
     createPipeline(): Promise<MediaPipeline>;
     releaseElement(element: any): Promise<boolean>;

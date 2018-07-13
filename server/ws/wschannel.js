@@ -3,10 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var MiniMQ = require("minimq");
 var websocket_1 = require("./websocket");
 var WSChannel = (function () {
-    function WSChannel(wsAddress) {
+    function WSChannel(wsAddress, debug) {
         var _this = this;
         this.messageListeners = {};
         this.eventListeners = {};
+        this.debug = debug;
         this.queue = new MiniMQ();
         this.queue.handlerFunction = function (el, prm, resolve, reject) {
             try {
@@ -26,6 +27,9 @@ var WSChannel = (function () {
         };
         this.ws.onmessage = function (result) {
             var data = JSON.parse(result.data);
+            if (_this.debug) {
+                console.log("Received: ", result.data);
+            }
             if (data.method != "onEvent" && typeof data.error === "undefined") {
                 var id = data.id;
                 _this.messageListeners[id]["resolve"](data);
@@ -52,6 +56,9 @@ var WSChannel = (function () {
         this.eventListeners[index].push(callback);
     };
     WSChannel.prototype.send = function (data) {
+        if (this.debug) {
+            console.log("Sent: ", data);
+        }
         return this.queue.addElement(data);
     };
     return WSChannel;

@@ -4,7 +4,8 @@ export declare class WSChannel {
     private messageListeners;
     private eventListeners;
     private queue;
-    constructor(wsAddress: any);
+    private debug;
+    constructor(wsAddress: any, debug: any);
     on(objectId: any, methodName: any, callback: any): void;
     send(data: WSMessage): Promise<any>;
 }

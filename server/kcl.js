@@ -44,9 +44,10 @@ var playerendpoint_1 = require("./mediaelement/playerendpoint");
 var composite_1 = require("./mediaelement/composite");
 var hubport_1 = require("./mediaelement/hubport");
 var KCL = (function () {
-    function KCL(wsAddress) {
+    function KCL(wsAddress, debug) {
+        if (debug === void 0) { debug = false; }
         this.messageFactory = new messagefactory_1.MessageFactory();
-        this.ws = new wschannel_1.WSChannel(wsAddress);
+        this.ws = new wschannel_1.WSChannel(wsAddress, debug);
         this.responseAdapter = new responseadapter_1.ResponseAdapter();
     }
     KCL.prototype.ping = function () {

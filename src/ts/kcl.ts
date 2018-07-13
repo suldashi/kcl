@@ -13,9 +13,9 @@ export class KCL {
 	private ws:WSChannel;
 	private responseAdapter:ResponseAdapter;
 	
-	constructor(wsAddress:string) {
+	constructor(wsAddress:string, debug:boolean = false) {
 		this.messageFactory = new MessageFactory();
-	    this.ws = new WSChannel(wsAddress);
+	    this.ws = new WSChannel(wsAddress,debug);
 	    this.responseAdapter = new ResponseAdapter();
 	}
 

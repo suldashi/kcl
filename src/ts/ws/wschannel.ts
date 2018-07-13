@@ -7,9 +7,11 @@ export class WSChannel {
 	private messageListeners;
 	private eventListeners;
 	private queue;
-	constructor(wsAddress) {
+	private debug;
+	constructor(wsAddress,debug) {
 		this.messageListeners = {};
 	    this.eventListeners = {};
+	    this.debug = debug;
 
 		this.queue = new MiniMQ();
 		this.queue.handlerFunction = (el,prm,resolve,reject) => {
@@ -30,7 +32,10 @@ export class WSChannel {
 	    	this.queue.closeQueue();
 	    }
 	    this.ws.onmessage = (result) =>{
-	    	var data = JSON.parse(result.data);	    	
+	    	var data = JSON.parse(result.data);
+	    	if(this.debug) {
+	    		console.log("Received: ",result.data);
+	    	}
 	    	//normal responses
 	    	if(data.method!="onEvent" && typeof data.error === "undefined") {
 	    		var id = data.id;
@@ -62,6 +67,9 @@ export class WSChannel {
 	}
 
 	public send(data:WSMessage):Promise<any> {
+		if(this.debug) {
+			console.log("Sent: ",data);
+		}
 		return this.queue.addElement(data);
 	}
 }
